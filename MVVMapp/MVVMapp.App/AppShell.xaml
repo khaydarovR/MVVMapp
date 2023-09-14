@@ -1,0 +1,32 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MVVMapp.App.Views"
+       xmlns:style="clr-namespace:MVVMapp.App.Resources.Styles"
+       xmlns:app="clr-namespace:MVVMapp.App"
+       Title="MVVMapp.App"
+       x:Class="MVVMapp.App.AppShell" 
+       FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+        Glyph={x:Static style:FontAwesomeSolid.Bars}}"
+       FlyoutBackgroundColor="{StaticResource LightGray}">
+
+    <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar>
+
+    <FlyoutItem Title="About" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+        Glyph={x:Static style:FontAwesomeSolid.Question}}">
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}">
+        </ShellContent>
+    </FlyoutItem>
+    <FlyoutItem x:Name="RootItem" Title="Browse" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+        Glyph={x:Static style:FontAwesomeSolid.Home}}">
+        <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}">
+        </ShellContent>
+    </FlyoutItem>
+
+    <MenuItem Text="Logout" Clicked="OnMenuItemClicked" 
+              IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+        Glyph={x:Static style:FontAwesomeSolid.SignOutAlt}}">
+    </MenuItem>
+
+</Shell>

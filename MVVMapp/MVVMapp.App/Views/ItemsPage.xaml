@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVMapp.App.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:MVVMapp.App.ViewModels"
+             xmlns:style="clr-namespace:MVVMapp.App.Resources.Styles"
+             xmlns:template="clr-namespace:MVVMapp.App.Views.Templates"
+             xmlns:model="clr-namespace:MVVMapp.App.Models"  
+             x:DataType="local:ItemsViewModel"
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" 
+                     IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+                     Glyph={x:Static style:FontAwesomeSolid.PlusCircle}}"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <RefreshView IsRefreshing="{Binding IsBusy}"
+             Command="{Binding LoadItemsCommand}">
+            <CollectionView ItemsSource="{Binding Items}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding ItemSelectionChangedCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <template:KeyValueView />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+    
+</ContentPage>
