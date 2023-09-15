@@ -18,4 +18,5 @@ public partial class SelfSettingsPage : ContentPage
         base.OnAppearing();
         _viewModel.OnAppearing();
     }
+
 }

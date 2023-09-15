@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using MVVMapp.App.DAL;
 using MVVMapp.App.Models;
 using MVVMapp.App.Services;
@@ -14,6 +15,7 @@ namespace MVVMapp.App
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");

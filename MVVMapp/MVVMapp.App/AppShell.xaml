@@ -24,12 +24,12 @@
         </ShellContent>
     </FlyoutItem>
     <FlyoutItem Title="Расписание" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
-        Glyph={x:Static style:FontAwesomeSolid.Question}}">
+        Glyph={x:Static style:FontAwesomeSolid.List}}">
         <ShellContent Route="SchedulePage" ContentTemplate="{DataTemplate local:SchedulePage}">
         </ShellContent>
     </FlyoutItem>
     <FlyoutItem Title="Настройки" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
-        Glyph={x:Static style:FontAwesomeSolid.Question}}">
+        Glyph={x:Static style:FontAwesomeSolid.MehRollingEyes}}">
         <ShellContent Route="SelfSettingsPage" ContentTemplate="{DataTemplate local:SelfSettingsPage}">
         </ShellContent>
     </FlyoutItem>

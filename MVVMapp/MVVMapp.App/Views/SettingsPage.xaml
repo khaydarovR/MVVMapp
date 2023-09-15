@@ -6,42 +6,58 @@
              xmlns:local="clr-namespace:MVVMapp.App.ViewModels"
              xmlns:style="clr-namespace:MVVMapp.App.Resources.Styles"
              xmlns:template="clr-namespace:MVVMapp.App.Views.Templates"
-             xmlns:model="clr-namespace:MVVMapp.App.Models"  
+             xmlns:model="clr-namespace:MVVMapp.App.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="local:SettingsViewModel"
              x:Name="SelfSettings">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    
+    <Border
+         StrokeThickness="0"
+        StrokeShape="RoundRectangle 20,20,20,20"
+        Background="whiteSmoke"
+        Padding="1,1"
+        Margin="10, 10"
+        HorizontalOptions="Fill">
 
-        <BoxView Color="White" Grid.Column="0" Grid.Row="0" />
-        <BoxView Color="White" Grid.Column="0" Grid.Row="1" />
+        <VerticalStackLayout BackgroundColor="whiteSmoke"
+                     MinimumHeightRequest="10"
+                     HorizontalOptions="Center"
+                     Spacing="30"
+                     Margin="10, 10"
+                     Padding="10, 10"
+                     MinimumWidthRequest="120">
 
-        <BoxView Color="White" Grid.Column="1" Grid.Row="0" />
-        <BoxView Color="White" Grid.Column="1" Grid.Row="1" />
 
-        <Border Grid.Column="0"
-            Margin="10, 10"
-            Padding="0, 20"
-            StrokeShape="RoundRectangle 10"
-            StrokeThickness="0"
-            Background="WhiteSmoke"
-            HorizontalOptions="Fill">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Группа" FontSize="Medium"/>
+                <Picker FontSize="Medium"
+                        WidthRequest="300"
+                        HorizontalOptions="Center"
+                        ItemsSource="{Binding GroupList, Mode=TwoWay}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding SelectedGroup}">
+                    
+                </Picker>
+            </VerticalStackLayout>
+            
+            
+            
 
-            <VerticalStackLayout MinimumHeightRequest="10" HorizontalOptions="CenterAndExpand" Spacing="10">
-                <Picker FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Grid.Column="0"
-                    ItemsSource="{Binding GroupList}" />
-
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Уведомлять (мин.)" FontSize="Medium"/>
+                <Picker FontSize="Medium" 
+                    WidthRequest="300"
+                    ItemsSource="{Binding TimerValueList}"
+                    SelectedIndex="0"
+                    HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
-        </Border>
 
-    </Grid>
+        </VerticalStackLayout>
+
+    </Border>
+    
+    
 
 </ContentPage>
