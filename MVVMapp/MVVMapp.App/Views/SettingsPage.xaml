@@ -31,13 +31,19 @@
 
             <VerticalStackLayout Spacing="10">
                 <Label Text="Группа" FontSize="Medium"/>
-                <Picker FontSize="Medium"
-                        WidthRequest="300"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding GroupList, Mode=TwoWay}"
-                        SelectedIndex="0"
-                        SelectedItem="{Binding SelectedGroup}">
-                    
+
+                <Picker
+                    ItemsSource="{Binding GroupList}"
+                    SelectedItem="{Binding SelectedGroup}"
+                    FontSize="Medium" 
+                    WidthRequest="300"
+                    >
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding GroupSelectedCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Picker.Behaviors>
                 </Picker>
             </VerticalStackLayout>
             

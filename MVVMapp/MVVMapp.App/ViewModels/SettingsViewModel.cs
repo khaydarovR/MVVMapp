@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MVVMapp.App.DAL;
+using MVVMapp.App.Models;
 
 namespace MVVMapp.App.ViewModels;
 
@@ -18,7 +19,7 @@ public partial class SettingsViewModel : ObservableObject
     private List<string> groupList = new List<string> { "423402", "123123" };
 
     [ObservableProperty]
-    private List<int> timerValueList = new List<int> { 5, 15, 30, 60 };
+    private List<int> timerValueList = new List<int> { 123, 12343};
 
     private readonly UserSettingsDB _userSettingsDB;
 
@@ -29,11 +30,13 @@ public partial class SettingsViewModel : ObservableObject
     }
 
 
+    UserSetting setting = new UserSetting();
     [RelayCommand]
-    private void ItemSelected(object item)
+    private void GroupSelected(object item)
     {
-        selectedGroup = item as string;
+        setting.Group = selectedGroup;
     }
+
 
 
     async public void OnAppearing()
