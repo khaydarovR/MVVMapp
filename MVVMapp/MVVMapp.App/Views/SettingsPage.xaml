@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MVVMapp.App.Views.SchedulePage"
+             x:Class="MVVMapp.App.Views.SelfSettingsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MVVMapp.App.ViewModels"
              xmlns:style="clr-namespace:MVVMapp.App.Resources.Styles"
              xmlns:template="clr-namespace:MVVMapp.App.Views.Templates"
              xmlns:model="clr-namespace:MVVMapp.App.Models"  
-             x:DataType="local:ScheduleViewModel"
-             x:Name="ScheduleView">
+             x:DataType="local:SettingsViewModel"
+             x:Name="SelfSettings">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,12 +34,11 @@
             Background="WhiteSmoke"
             HorizontalOptions="Fill">
 
-            <HorizontalStackLayout MinimumHeightRequest="10" HorizontalOptions="CenterAndExpand" Spacing="10">
-                <DatePicker HorizontalOptions="Start" FontSize="Medium" Format="d">
-                    <DatePicker.MinimumDate>01/01/2023</DatePicker.MinimumDate>
-                    <DatePicker.MaximumDate>01/01/2025</DatePicker.MaximumDate>
-                </DatePicker>
-            </HorizontalStackLayout>
+            <VerticalStackLayout MinimumHeightRequest="10" HorizontalOptions="CenterAndExpand" Spacing="10">
+                <Picker FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Grid.Column="0"
+                    ItemsSource="{Binding GroupList}" />
+
+            </VerticalStackLayout>
 
         </Border>
 

@@ -28,6 +28,11 @@
         <ShellContent Route="SchedulePage" ContentTemplate="{DataTemplate local:SchedulePage}">
         </ShellContent>
     </FlyoutItem>
+    <FlyoutItem Title="Настройки" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+        Glyph={x:Static style:FontAwesomeSolid.Question}}">
+        <ShellContent Route="SelfSettingsPage" ContentTemplate="{DataTemplate local:SelfSettingsPage}">
+        </ShellContent>
+    </FlyoutItem>
 
     <MenuItem Text="Logout" Clicked="OnMenuItemClicked" 
               IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 

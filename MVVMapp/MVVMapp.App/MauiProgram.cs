@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MVVMapp.App.DAL;
 using MVVMapp.App.Models;
 using MVVMapp.App.Services;
 using MVVMapp.App.ViewModels;
@@ -37,7 +38,11 @@ namespace MVVMapp.App
             builder.Services.AddScoped<ScheduleViewModel>();
             builder.Services.AddScoped<SchedulePage>();
 
+            builder.Services.AddScoped<SettingsViewModel>();
+            builder.Services.AddScoped<SelfSettingsPage>();
+
             builder.Services.AddSingleton<ILessonsDataStore, LessonsDataStore>();
+            builder.Services.AddSingleton<UserSettingsDB>();
 
             return builder.Build();
         }
