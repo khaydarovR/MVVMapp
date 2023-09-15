@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.UI.Notifications;
-
-namespace MVVMapp.App.Services
+﻿namespace MVVMapp.App.Services
 {
     public interface IDataStore<T>
     {

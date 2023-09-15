@@ -12,6 +12,7 @@ namespace MVVMapp.App
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NotesPage), typeof(NotesPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));

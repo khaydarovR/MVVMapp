@@ -34,6 +34,9 @@ namespace MVVMapp.App
             builder.Services.AddScoped<NewItemViewModel>();
             builder.Services.AddScoped<NewItemPage>();
 
+            builder.Services.AddScoped<ScheduleViewModel>();
+            builder.Services.AddScoped<SchedulePage>();
+
             builder.Services.AddSingleton<ILessonsDataStore, LessonsDataStore>();
 
             return builder.Build();

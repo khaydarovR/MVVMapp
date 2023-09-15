@@ -1,15 +1,12 @@
-﻿using MVVMapp.App.Models;
 using MVVMapp.App.ViewModels;
-using MVVMapp.App.Views;
-using System.Diagnostics;
 
 namespace MVVMapp.App.Views;
 
-public partial class ItemsPage : ContentPage
+public partial class SchedulePage : ContentPage
 {
-    ItemsViewModel _viewModel;
+    ScheduleViewModel _viewModel;
 
-    public ItemsPage(ItemsViewModel viewModel)
+    public SchedulePage(ScheduleViewModel viewModel)
     {
         InitializeComponent();
 

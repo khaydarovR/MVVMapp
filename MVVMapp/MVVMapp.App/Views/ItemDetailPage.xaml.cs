@@ -1,16 +1,12 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using MVVMapp.App.ViewModels;
-using System.ComponentModel;
+﻿using MVVMapp.App.ViewModels;
 
-namespace MVVMapp.App.Views
+namespace MVVMapp.App.Views;
+
+public partial class ItemDetailPage : ContentPage
 {
-    public partial class ItemDetailPage : ContentPage
+    public ItemDetailPage(ItemDetailViewModel viewModel)
     {
-        public ItemDetailPage(ItemDetailViewModel viewModel)
-        {
-            InitializeComponent();
-            BindingContext = viewModel;
-        }
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 }

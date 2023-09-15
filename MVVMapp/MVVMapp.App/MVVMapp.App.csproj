@@ -56,6 +56,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\SchedulePage.xaml.cs">
+	    <DependentUpon>SchedulePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SchedulePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
