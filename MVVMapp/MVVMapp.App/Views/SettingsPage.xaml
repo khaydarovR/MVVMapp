@@ -31,12 +31,11 @@
 
             <VerticalStackLayout Spacing="10">
                 <Label Text="Группа" FontSize="Medium"/>
-
                 <Picker
                     ItemsSource="{Binding GroupList}"
                     SelectedItem="{Binding SelectedGroup}"
                     FontSize="Medium" 
-                    WidthRequest="300"
+                    WidthRequest="200"
                     >
                     <Picker.Behaviors>
                         <toolkit:EventToCommandBehavior
@@ -47,16 +46,44 @@
                 </Picker>
             </VerticalStackLayout>
             
-            
-            
-
             <VerticalStackLayout Spacing="10">
                 <Label Text="Уведомлять (мин.)" FontSize="Medium"/>
-                <Picker FontSize="Medium" 
-                    WidthRequest="300"
+
+                <Picker
                     ItemsSource="{Binding TimerValueList}"
-                    SelectedIndex="0"
-                    HorizontalOptions="Center"/>
+                    SelectedItem="{Binding SelectedTimer}"
+                    FontSize="Medium" 
+                    WidthRequest="200"
+                    >
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding TimerSelectedCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Picker.Behaviors>
+                </Picker>
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Button Text="Настройки">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="Clicked"
+                            Command="{Binding GetSettingsAsyncCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Button.Behaviors>
+                </Button>
+
+                <Button Text="Уведомления">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="Clicked"
+                            Command="{Binding SendNotifyCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Button.Behaviors>
+                </Button>
+
             </VerticalStackLayout>
 
 

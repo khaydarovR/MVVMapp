@@ -23,20 +23,20 @@ namespace MVVMapp.App.DAL
                 return;
 
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-            var result = await Database.CreateTableAsync<UserSetting>();
+            var result = await Database.CreateTableAsync<Lesson>();
         }
 
-        public async Task<List<UserSetting>> GetItemsAsync()
+        public async Task<List<Lesson>> GetItemsAsync()
         {
             await Init();
-            return await Database.Table<UserSetting>().ToListAsync();
+            return await Database.Table<Lesson>().ToListAsync();
         }
 
 
-        public async Task<int> SaveItemAsync(UserSetting item)
+        public async Task<int> SaveItemAsync(Lesson item)
         {
             await Init();
-            if (item.UserName == "")
+            if (item.Name == "")
                 return await Database.UpdateAsync(item);
             else
                 return await Database.InsertAsync(item);

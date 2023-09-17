@@ -20,5 +20,8 @@ namespace MVVMapp.App.DAL
 
         public static string DatabasePath =>
             Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+
+        public const string KeyGroup = "groupNum";
+        public const string KeyTimer = "timerForNotify";
     }
 }

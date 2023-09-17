@@ -1,10 +1,12 @@
-﻿using CommunityToolkit.Maui;
+﻿    using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using MVVMapp.App.DAL;
 using MVVMapp.App.Models;
 using MVVMapp.App.Services;
 using MVVMapp.App.ViewModels;
 using MVVMapp.App.Views;
+using Plugin.LocalNotification;
+using System.Globalization;
 
 namespace MVVMapp.App
 {
@@ -12,10 +14,15 @@ namespace MVVMapp.App
     {
         public static MauiApp CreateMauiApp()
         {
+            DateTimeFormatInfo dtfi = CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat;
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+#if ANDROID
+                .UseLocalNotification()
+#endif
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");
