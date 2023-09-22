@@ -27,7 +27,7 @@ public class RestService
         };
     }
 
-    public async Task<StudDayOfWeek> RefreshDataAsync(string group, int subGroup, DateOnly date)
+    public async Task<StudDayOfWeek> RefreshDataAsync(string group, int subGroup, DateTime date)
     {
         StudDayOfWeek = new();
 
