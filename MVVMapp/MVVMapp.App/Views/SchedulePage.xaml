@@ -5,6 +5,7 @@
              Title="{Binding Title}"
              xmlns:viewmodel="clr-namespace:MVVMapp.App.ViewModels"
              xmlns:style="clr-namespace:MVVMapp.App.Resources.Styles"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:model="clr-namespace:MVVMapp.App.Models"
              x:Name="ScheduleView">
 
@@ -24,8 +25,14 @@
             Background="White"
             HorizontalOptions="Fill">
 
-            <HorizontalStackLayout MinimumHeightRequest="10" HorizontalOptions="CenterAndExpand" Spacing="10">
-                <DatePicker HorizontalOptions="Start" FontSize="Medium" Format="dd-MM-yyyy">
+            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" MinimumHeightRequest="10" HorizontalOptions="CenterAndExpand" Spacing="10">
+                <DatePicker Margin="10" x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
+                    <DatePicker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                    Command="{Binding DatePickedCommand}"
+                    CommandParameter="{Binding Date, Source={x:Reference MyDatePicker}}"
+                    EventName="DateSelected" />
+                    </DatePicker.Behaviors>
                 </DatePicker>
 
             </HorizontalStackLayout>
@@ -41,28 +48,34 @@
 
             <ListView Margin="5" x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
                 <ListView.RowHeight>
-                    <OnPlatform Default="60"/>
+                    <OnPlatform Default="100"/>
                 </ListView.RowHeight>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Lesson">
+                    <DataTemplate>
                         <ViewCell>
-                            <Grid>
-                                <Label
-                                   Text="{Binding Name}"
-                                   FontAttributes="Bold" 
-                                       FontSize="Large"/>
-                                <HorizontalStackLayout Spacing="20" Margin="0, 30, 0, 0">
+                            <ViewCell.View>
+                                <Border  Padding="10"
+                                         Margin="10, 10, 10, 0"
+                                         StrokeShape="RoundRectangle 10"
+                                         StrokeThickness="0"
+                                         Background="#e9d4ff"
+                                         HorizontalOptions="Fill">
 
-                                    <Label Text="{Binding LessonTypeEnum}" FontSize="Header"/>
+                                    <VerticalStackLayout x:DataType="model:Lesson">
+                                        <HorizontalStackLayout x:DataType="model:Lesson" Spacing="10">
+                                            <Label Text="{Binding StartTime}" FontSize="26" />
+                                            <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="26" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout x:DataType="model:Lesson" Spacing="40">
+                                            <Label Opacity=".8" Text="{Binding Locate}" FontSize="20" />
+                                            <Label Opacity=".8" Text="{Binding TeacherName}" FontSize="20" />
+                                            <Label Opacity=".8" Text="{Binding LessonTypeEnum}" FontSize="20" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
 
-                                    <Label Text="{Binding Locate}" FontSize="Header"/>
-
-                                    <Label Text="{Binding TeacherName}" FontSize="Header"/>
-
-                                    <Label Text="{Binding StartTime}" FontSize="Large" VerticalOptions="Start" Margin="40, 0, 0, 0"/>
-                                </HorizontalStackLayout>
-
-                            </Grid>
+                                </Border>
+                                
+                            </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

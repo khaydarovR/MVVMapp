@@ -51,7 +51,7 @@ namespace MVVMapp.App
             builder.Services.AddScoped<SelfSettingsPage>();
 
             builder.Services.AddSingleton<ILessonsDataStore, LessonsDataStore>();
-            builder.Services.AddSingleton<UserSettingsDB>();
+            builder.Services.AddSingleton<RestService>();
 
             return builder.Build();
         }

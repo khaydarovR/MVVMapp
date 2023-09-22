@@ -20,16 +20,20 @@ public partial class SettingsViewModel : ObservableObject
     private int? selectedTimer = 0;
 
     [ObservableProperty]
-    private List<string> groupList = new List<string> { "423402", "123123", "2133232" };
+    private int? selectedSubGroup = 1;
+
+    [ObservableProperty]
+    private List<string> groupList = new List<string> { "4201133", "4211133", "4201123" };
 
     [ObservableProperty]
     private List<int> timerValueList = new List<int> { 30, 60, 12};
 
-    private readonly UserSettingsDB _userSettingsDB;
+    [ObservableProperty]
+    private List<int> subGroupList = new List<int> { 1, 2, 3 };
 
-    public SettingsViewModel(UserSettingsDB userSettingsDB)
+
+    public SettingsViewModel()
     {
-        _userSettingsDB = userSettingsDB;
         SetSettingsfromStorage();
         if (storageGroup != "")
         {
@@ -38,6 +42,10 @@ public partial class SettingsViewModel : ObservableObject
         if (storageTimer != "")
         {
             selectedTimer = int.Parse(storageTimer);
+        }
+        if (storageSubGroup != "")
+        {
+            selectedSubGroup = int.Parse(storageSubGroup);
         }
     }
 
@@ -55,6 +63,12 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void SubGroupSelected(object item)
+    {
+        Preferences.Set(Constants.KeySubGroup, selectedSubGroup.ToString());
+    }
+
+    [RelayCommand]
     private async void SendNotify(object item)
     {
         var request = new NotificationRequest
@@ -66,14 +80,14 @@ public partial class SettingsViewModel : ObservableObject
             Schedule = new NotificationRequestSchedule
             {
                 NotifyTime = DateTime.Now.AddSeconds(5),
-                NotifyRepeatInterval = TimeSpan.FromDays(1)
             }
         };
-        LocalNotificationCenter.Current.Show(request);
+        await LocalNotificationCenter.Current.Show(request);
     }
 
     string storageTimer = "";
     string storageGroup = ""; 
+    string storageSubGroup = ""; 
     [RelayCommand]
     private async void GetSettingsAsync(object item)
     {
@@ -84,6 +98,7 @@ public partial class SettingsViewModel : ObservableObject
     {
         storageTimer = Preferences.Get(Constants.KeyTimer, "");
         storageGroup = Preferences.Get(Constants.KeyGroup, "");
+        storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
     }
 
     async public void OnAppearing()

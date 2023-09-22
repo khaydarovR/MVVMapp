@@ -23,5 +23,6 @@ namespace MVVMapp.App.DAL
 
         public const string KeyGroup = "groupNum";
         public const string KeyTimer = "timerForNotify";
+        public const string KeySubGroup = "subGroup";
     }
 }

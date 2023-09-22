@@ -47,6 +47,25 @@
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="10">
+                <Label Text="Подгруппа" FontSize="Medium"/>
+
+                <Picker
+                    ItemsSource="{Binding SubGroupList}"
+                    SelectedItem="{Binding SelectedSubGroup}"
+                    FontSize="Medium" 
+                    WidthRequest="200"
+                    >
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding SubGroupSelectedCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Picker.Behaviors>
+                </Picker>
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
                 <Label Text="Уведомлять (мин.)" FontSize="Medium"/>
 
                 <Picker
