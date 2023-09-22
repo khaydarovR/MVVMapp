@@ -47,10 +47,10 @@ public class RestService
         return StudDayOfWeek;
     }
 
-    public StudDayOfWeek RefreshData(string group, int subGroup, DateOnly? date)
+    public StudDayOfWeek RefreshData(string group, int subGroup, DateTime date)
     {
         string lessonName = "Сегодня дата";
-        if(date.Value.Day == 23)
+        if(date.Day == 23)
         {
             lessonName = "Другая дата";
         }

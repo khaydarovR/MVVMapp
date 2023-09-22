@@ -16,7 +16,6 @@ public partial class SelfSettingsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel.OnAppearing();
     }
 
 }

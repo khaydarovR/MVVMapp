@@ -45,15 +45,13 @@ public partial class ScheduleViewModel: ObservableObject
         Debug.WriteLine($"AppointmentDate: {date}");
 
         UpdateSchelduler();
-
-        Application.Current.MainPage.DisplayAlert("Msg", $"{storageGroup}, {storageTimer}, {storageSubGroup}", "Ok", "Cancel");
     }
 
     [ObservableProperty]
     private string? title = "Расписание";
 
     [ObservableProperty]
-    private ObservableCollection<Lesson> lessonsList = new();
+    private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Из конструктора"} };
 
     string storageTimer;
     string storageGroup;
@@ -62,12 +60,8 @@ public partial class ScheduleViewModel: ObservableObject
 
     private void UpdateSchelduler()
     {
-        var data = _restService.RefreshData(storageGroup, int.Parse(storageSubGroup), selectedDate);
+        var data = _restService.RefreshData(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
 
-        lessonsList = data.Lessons.ToObservableCollection();
-    }
-
-    async public void OnAppearing()
-    {
+        LessonsList = data.Lessons.ToObservableCollection();
     }
 }
