@@ -22,6 +22,7 @@ public partial class ScheduleViewModel: ObservableObject
 
         
         _restService = restService;
+        UpdateSchelduler();
     }
 
 
@@ -59,9 +60,12 @@ public partial class ScheduleViewModel: ObservableObject
     string storageSubGroup;
 
 
-    private void UpdateSchelduler()
+    private async void UpdateSchelduler()
     {
-        var data = _restService.RefreshData(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
+        storageGroup = Preferences.Get(Constants.KeyGroup, "");
+        storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
+
+        var data = await _restService.RefreshDataAsync(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
         LessonsList = data.Lessons.ToObservableCollection();
 #if ANDROID
         CreateNotifyForLessons(LessonsList);

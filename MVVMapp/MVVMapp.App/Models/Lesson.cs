@@ -8,7 +8,7 @@
         public string Locate { get; set; } = "403";
         public LessonTypeEnum LessonTypeEnum { get; set; } = LessonTypeEnum.Лабы;
         public string TeacherName { get; set; } = "B.D Иванов";
-        public TimeOnly StartTime { get; set; } = TimeOnly.Parse("13:30");
+        public DateTime StartTime { get; set; } = DateTime.Now;
 
         public Lesson()
         {

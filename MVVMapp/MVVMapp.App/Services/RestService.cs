@@ -19,7 +19,7 @@ public class RestService
 
     public RestService()
     {
-        _client = new HttpClient() { BaseAddress = new Uri("https://localhost:7117/") };
+        _client = new HttpClient() { BaseAddress = new Uri("https://localhost:7023/") };
         _serializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -29,15 +29,23 @@ public class RestService
 
     public async Task<StudDayOfWeek> RefreshDataAsync(string group, int subGroup, DateTime date)
     {
-        StudDayOfWeek = new();
-
         try
         {
-            HttpResponseMessage response = await _client.GetAsync("");
+            string json = JsonSerializer.Serialize<DateTime>(date, _serializerOptions);
+            StringContent requestContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync($"api/SdStud/Gen?group={group}&subgroup={subGroup}", requestContent);
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                StudDayOfWeek = JsonSerializer.Deserialize<StudDayOfWeek>(content, _serializerOptions);
+                var data = JsonSerializer.Deserialize<List<Lesson>>(content, _serializerOptions);
+
+                var model = new StudDayOfWeek()
+                {
+                    Lessons = data,
+                    Group = group,
+                };
+                return model;
             }
         }
         catch (Exception ex)
@@ -62,9 +70,9 @@ public class RestService
             WeekType = WeekTypeEnum.Вверхняя,
             Lessons = new List<Lesson>
             {
-                new Lesson {Name = lessonName, StartTime = new TimeOnly(8, 0)},
-                new Lesson {Name = "Экономика", StartTime = new TimeOnly(9, 40)},
-                new Lesson {Name = "ММоделирование эк систем", StartTime = new TimeOnly(11, 50)},
+                new Lesson {Name = lessonName},
+                new Lesson {Name = "Экономика"},
+                new Lesson {Name = "ММоделирование эк систем",},
             }
         };
 
