@@ -26,7 +26,7 @@
             Background="White"
             HorizontalOptions="Fill">
 
-            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" MinimumHeightRequest="15" HorizontalOptions="CenterAndExpand" Spacing="10">
+            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" MinimumHeightRequest="15" HorizontalOptions="CenterAndExpand" Spacing="20">
                 <DatePicker FontSize="Large" Margin="5" x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
                     <DatePicker.Behaviors>
                         <toolkit:EventToCommandBehavior
@@ -35,8 +35,8 @@
                             EventName="DateSelected" />
                     </DatePicker.Behaviors>
                 </DatePicker>
-                
-                <Label Text="{Binding }"
+
+                <Label Text="{Binding DayOfWeekString}" FontSize="Medium" />
 
             </HorizontalStackLayout>
 

@@ -16,6 +16,7 @@ public partial class ScheduleViewModel: ObservableObject
     private readonly RestService _restService;
     public ScheduleViewModel(RestService restService)
     {
+        _dayOfWeekString = Helpers.ToRussianDayOfWeek(DateTime.Now.DayOfWeek);
         storageTimer = Preferences.Get(Constants.KeyTimer, "");
         storageGroup = Preferences.Get(Constants.KeyGroup, "");
         storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
@@ -30,6 +31,8 @@ public partial class ScheduleViewModel: ObservableObject
     [ObservableProperty]
     private DateTime _appointmentDate = DateTime.Now;
 
+    [ObservableProperty]
+    private RussianDayOfWeek _dayOfWeekString;
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
@@ -45,6 +48,8 @@ public partial class ScheduleViewModel: ObservableObject
     private async Task DatePicked(DateTime date)
     {
         Debug.WriteLine($"AppointmentDate: {date}");
+
+        DayOfWeekString = Helpers.ToRussianDayOfWeek(date.DayOfWeek);
 
         UpdateSchelduler();
     }

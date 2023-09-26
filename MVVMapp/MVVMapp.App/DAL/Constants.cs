@@ -25,4 +25,15 @@ namespace MVVMapp.App.DAL
         public const string KeyTimer = "timerForNotify";
         public const string KeySubGroup = "subGroup";
     }
+
+    public enum RussianDayOfWeek
+    {
+        Воскресенье = 0, // Sunday
+        Понедельник = 1, // Monday
+        Вторник = 2, // Tuesday
+        Среда = 3, // Wednesday
+        Четверг = 4, // Thursday
+        Пятница = 5, // Friday
+        Суббота = 6  // Saturday
+    }
 }
