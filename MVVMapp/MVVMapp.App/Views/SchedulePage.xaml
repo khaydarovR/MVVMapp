@@ -9,14 +9,7 @@
              xmlns:model="clr-namespace:MVVMapp.App.Models"
              x:Name="ScheduleView">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:BoolToObjectConverter x:Key="BoolToVisibilityConverter"
-                                        TrueObject="{x:Static Visibility.Visible}"
-                                        FalseObject="{x:Static Visibility.Collapsed}" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
+    
     <Grid BackgroundColor="#512BD4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,11 +25,6 @@
             StrokeThickness="0"
             Background="White"
             HorizontalOptions="Fill">
-            <StackLayout>
-                <CheckBox x:Name="ToggleComponentVisibility" />
-                <Label Text="Hello, I am visible or not based on the CheckBox state!"
-          IsVisible="{Binding IsVisible, Source={x:Reference ToggleComponentVisibility}, Converter={StaticResource BoolToVisibilityConverter}}" />
-            </StackLayout>
 
             <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" MinimumHeightRequest="15" HorizontalOptions="CenterAndExpand" Spacing="10">
                 <DatePicker FontSize="Large" Margin="5" x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
@@ -47,6 +35,8 @@
                             EventName="DateSelected" />
                     </DatePicker.Behaviors>
                 </DatePicker>
+                
+                <Label Text="{Binding }"
 
             </HorizontalStackLayout>
 

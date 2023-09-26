@@ -51,11 +51,7 @@ public partial class ScheduleViewModel: ObservableObject
 
     [ObservableProperty]
     private string? title = "Расписание";
-
-    [ObservableProperty]
-    private bool isVisible = true;
     
-
     [ObservableProperty]
     private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Не удалось загрузить расписание"} };
 
