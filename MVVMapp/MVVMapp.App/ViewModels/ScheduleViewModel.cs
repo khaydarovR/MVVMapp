@@ -53,7 +53,11 @@ public partial class ScheduleViewModel: ObservableObject
     private string? title = "Расписание";
 
     [ObservableProperty]
-    private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Из конструктора"} };
+    private bool isVisible = true;
+    
+
+    [ObservableProperty]
+    private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Не удалось загрузить расписание"} };
 
     string storageTimer;
     string storageGroup;
@@ -67,14 +71,16 @@ public partial class ScheduleViewModel: ObservableObject
 
         var data = await _restService.RefreshDataAsync(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
         LessonsList = data.Lessons.ToObservableCollection();
+        if (string.IsNullOrEmpty(storageTimer) == false)
+        {
 #if ANDROID
-        CreateNotifyForLessons(LessonsList);
+            CreateNotifyForLessons(LessonsList);
 #endif
+        }
     }
 
     private void CreateNotifyForLessons(IEnumerable<Lesson> lessons)
     {
-        LocalNotificationCenter.Current.CancelAll();
 
         foreach (var les in lessons)
         {
@@ -87,7 +93,7 @@ public partial class ScheduleViewModel: ObservableObject
                 BadgeNumber = 42,
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = _appointmentDate.AddHours(les.StartTime.Hour).AddMinutes(les.StartTime.Minute),
+                    NotifyTime = _appointmentDate.AddHours(les.StartTime.Hour).AddMinutes(les.StartTime.Minute - int.Parse(storageTimer))
                 }
             };
 

@@ -29,6 +29,7 @@ public class RestService
 
     public async Task<StudDayOfWeek> RefreshDataAsync(string group, int subGroup, DateTime date)
     {
+        var serviceResponse = new StudDayOfWeek();
         try
         {
             string json = JsonSerializer.Serialize<DateTime>(date, _serializerOptions);
@@ -40,19 +41,17 @@ public class RestService
                 string content = await response.Content.ReadAsStringAsync();
                 var data = JsonSerializer.Deserialize<List<Lesson>>(content, _serializerOptions);
 
-                var model = new StudDayOfWeek()
-                {
-                    Lessons = data,
-                    Group = group,
-                };
-                return model;
+                serviceResponse.Lessons = data;
+                serviceResponse.Group = group;
+
+                return serviceResponse;
             }
         }
         catch (Exception ex)
         {
             Debug.WriteLine(@"\tERROR {0}", ex.Message);
         }
-        return StudDayOfWeek;
+        return serviceResponse;
     }
 
     public StudDayOfWeek RefreshData(string group, int subGroup, DateTime date)

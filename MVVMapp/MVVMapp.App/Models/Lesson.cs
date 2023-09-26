@@ -5,10 +5,10 @@
         static int count = 0;
         public int Id { get; set; } = count;
         public string Name { get; set; } = "Название пары";
-        public string Locate { get; set; } = "403";
-        public LessonTypeEnum LessonTypeEnum { get; set; } = LessonTypeEnum.Лабы;
-        public string TeacherName { get; set; } = "B.D Иванов";
-        public DateTime StartTime { get; set; } = DateTime.Now;
+        public string Locate { get; set; }
+        public LessonTypeEnum LessonTypeEnum { get; set; }
+        public string TeacherName { get; set; }
+        public DateTime StartTime { get; set; }
 
         public Lesson()
         {
