@@ -52,16 +52,15 @@
 
             <ListView Grid.Row="1"  x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
                 <ListView.RowHeight>
-                    <OnPlatform Default="Auto"/>
+                    <OnPlatform Default="100"/>
                 </ListView.RowHeight>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <Border  Padding="10"
-                                         Margin="10, 10, 10, 0"
                                          StrokeShape="RoundRectangle 10"
-                                         StrokeThickness="0"
+                                         StrokeThickness="1"
                                          Background="#e9d4ff"
                                          HorizontalOptions="Fill">
 
@@ -69,9 +68,9 @@
                                         <HorizontalStackLayout x:DataType="model:Lesson" Spacing="10">
                                             <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="15" LineBreakMode="WordWrap" WidthRequest="300"/>
                                         </HorizontalStackLayout>
-                                        <HorizontalStackLayout x:DataType="model:Lesson" Spacing="5">
+                                        <HorizontalStackLayout WidthRequest="300" x:DataType="model:Lesson" Spacing="5">
                                             <Label Text="{Binding StartTime, StringFormat='{}{0:HH:mm}'}" FontSize="15" />
-                                            <Label Opacity=".8" Text="{Binding Locate}" FontSize="15" />
+                                            <Label Opacity=".8" LineBreakMode="WordWrap" Text="{Binding Locate}" FontSize="15" />
                                             <Label Opacity=".8" Text="{Binding TeacherName}" FontSize="15" />
                                             <Label Opacity=".8" Text="{Binding LessonTypeEnum}" FontSize="15" />
                                         </HorizontalStackLayout>
