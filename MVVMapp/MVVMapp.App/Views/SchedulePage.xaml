@@ -52,7 +52,7 @@
 
             <ListView Grid.Row="1"  x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
                 <ListView.RowHeight>
-                    <OnPlatform Default="100"/>
+                    <OnPlatform Default="Auto"/>
                 </ListView.RowHeight>
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -67,7 +67,7 @@
 
                                     <VerticalStackLayout x:DataType="model:Lesson">
                                         <HorizontalStackLayout x:DataType="model:Lesson" Spacing="10">
-                                            <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="15" />
+                                            <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="15" LineBreakMode="WordWrap" WidthRequest="300"/>
                                         </HorizontalStackLayout>
                                         <HorizontalStackLayout x:DataType="model:Lesson" Spacing="5">
                                             <Label Text="{Binding StartTime, StringFormat='{}{0:HH:mm}'}" FontSize="15" />
