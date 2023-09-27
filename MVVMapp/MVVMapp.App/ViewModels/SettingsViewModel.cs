@@ -23,13 +23,16 @@ public partial class SettingsViewModel : ObservableObject
     private int? selectedSubGroup = 1;
 
     [ObservableProperty]
-    private List<string> groupList = new List<string> { "4201133", "4211133", "4201123" };
+    private List<string> groupList = new List<string> { "4231101", "4231111", "42311129", "4231123",
+    "4231133","4231102","4221101","4221111","4221113","42211129","4221123","4221133","4221102","4221103","4211101","4211102",
+    "4211111","4211123","4211133","4211103","4211104","4211112","4211113","4201101","4201111","42011129","4201123","4201133",
+    "4201102","4201112"};
 
     [ObservableProperty]
-    private List<int> timerValueList = new List<int> { 30, 60, 12};
+    private List<int> timerValueList = new List<int> { 5, 10, 30, 60, 1440};
 
     [ObservableProperty]
-    private List<int> subGroupList = new List<int> { 1, 2, 3 };
+    private List<int> subGroupList = new List<int> { 1, 2 };
 
 
     public SettingsViewModel()

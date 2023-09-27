@@ -46,8 +46,7 @@ namespace MVVMapp.App
 
         public void SetRootPageTitle(string name)
         {
-            RootItem.Title = name;
-            RootItem.FlyoutItemIsVisible = true;
+
         }
     }
 }

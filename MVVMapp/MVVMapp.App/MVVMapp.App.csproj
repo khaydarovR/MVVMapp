@@ -12,10 +12,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
     
 		<!-- Display name -->
-		<ApplicationTitle>PassXYZ.Vault</ApplicationTitle>
+		<ApplicationTitle>K-timing</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.passxyz.vault2</ApplicationId>
+		<ApplicationId>ru.k-timing.RaDar</ApplicationId>
     <ApplicationIdGuid>8606B3B5-C03C-41D7-825F-B33718CF791C</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -34,10 +34,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\myicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\mysplash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />

@@ -9,12 +9,12 @@ namespace MVVMapp.App.ViewModels
     public partial class AboutViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string? title = "About";
+        private string? title = "О приложении";
 
         [RelayCommand]
         private async Task OpenWeb()
         {
-            await Browser.OpenAsync("https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-7.0");
+            //await Browser.OpenAsync("https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-7.0");
         }
     }
 }

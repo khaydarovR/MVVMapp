@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Column="0"
@@ -26,7 +26,7 @@
             Background="White"
             HorizontalOptions="Fill">
 
-            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" HorizontalOptions="CenterAndExpand"
+            <HorizontalStackLayout x:DataType="viewmodel:ScheduleViewModel" HorizontalOptions="CenterAndExpand"
                                     VerticalOptions="Center" Spacing="10">
                 <DatePicker FontSize="Medium"  x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
                     <DatePicker.Behaviors>
@@ -50,7 +50,7 @@
             Background="White"
             HorizontalOptions="Fill">
 
-            <ListView x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
+            <ListView Grid.Row="1"  x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
                 <ListView.RowHeight>
                     <OnPlatform Default="100"/>
                 </ListView.RowHeight>
