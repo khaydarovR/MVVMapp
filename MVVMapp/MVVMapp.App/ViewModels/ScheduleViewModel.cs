@@ -14,19 +14,36 @@ namespace MVVMapp.App.ViewModels;
 public partial class ScheduleViewModel: ObservableObject
 {
     private readonly RestService _restService;
+    private bool _isConfigured = false;
+    private Dictionary<string, string> _userSettings = new();
     public ScheduleViewModel(RestService restService)
     {
         _dayOfWeekString = Helpers.ToRussianDayOfWeek(DateTime.Now.DayOfWeek);
-        storageTimer = Preferences.Get(Constants.KeyTimer, "");
-        storageGroup = Preferences.Get(Constants.KeyGroup, "");
-        storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
-
-        
+        _userSettings[Constants.KeyTimer] = Preferences.Get(Constants.KeyTimer, "");
+        _userSettings[Constants.KeyGroup] = Preferences.Get(Constants.KeyGroup, "");
+        _userSettings[Constants.KeySubGroup] = Preferences.Get(Constants.KeySubGroup, "");
         _restService = restService;
-        UpdateSchelduler();
+
+        CheckConfiguration();
+
+        if (_isConfigured)
+        {
+            UpdateSchelduler();
+        }
     }
 
-
+    private void CheckConfiguration()
+    {
+        var emptySet = _userSettings.FirstOrDefault(v => string.IsNullOrEmpty(v.Value)).Value;
+        if (string.IsNullOrEmpty(emptySet))
+        {
+            _isConfigured = false;
+        }
+        else
+        {
+            _isConfigured = true;
+        }
+    }
 
     [ObservableProperty]
     private DateTime _appointmentDate = DateTime.Now;
@@ -51,7 +68,10 @@ public partial class ScheduleViewModel: ObservableObject
 
         DayOfWeekString = Helpers.ToRussianDayOfWeek(date.DayOfWeek);
 
-        UpdateSchelduler();
+        if (_isConfigured)
+        {
+            UpdateSchelduler();
+        }
     }
 
     [ObservableProperty]
@@ -60,15 +80,11 @@ public partial class ScheduleViewModel: ObservableObject
     [ObservableProperty]
     private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Не удалось загрузить расписание"} };
 
-    string storageTimer;
-    string storageGroup;
-    string storageSubGroup;
-
-
     private async void UpdateSchelduler()
     {
-        storageGroup = Preferences.Get(Constants.KeyGroup, "");
-        storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
+        var storageGroup = Preferences.Get(Constants.KeyGroup, "");
+        var storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
+        var storageTimer = Preferences.Get(Constants.KeyTimer, "");
 
         var data = await _restService.RefreshDataAsync(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
         LessonsList = data.Lessons.ToObservableCollection();
@@ -82,7 +98,7 @@ public partial class ScheduleViewModel: ObservableObject
 
     private void CreateNotifyForLessons(IEnumerable<Lesson> lessons)
     {
-
+        var storageTimer = Preferences.Get(Constants.KeyTimer, "");
         foreach (var les in lessons)
         {
             var request = new NotificationRequest()

@@ -20,14 +20,15 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Column="0"
-            Margin="10, 10, 10, 0"
+            Margin="10, 0, 10, 0"
             StrokeShape="RoundRectangle 10"
             StrokeThickness="0"
             Background="White"
             HorizontalOptions="Fill">
 
-            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" MinimumHeightRequest="15" HorizontalOptions="CenterAndExpand" Spacing="20">
-                <DatePicker FontSize="Large" Margin="5" x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
+            <HorizontalStackLayout  x:DataType="viewmodel:ScheduleViewModel" HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="Center" Spacing="10">
+                <DatePicker FontSize="Medium"  x:Name="MyDatePicker" Date = "{Binding AppointmentDate}" >
                     <DatePicker.Behaviors>
                         <toolkit:EventToCommandBehavior
                             Command="{Binding DatePickedCommand}"
@@ -36,7 +37,7 @@
                     </DatePicker.Behaviors>
                 </DatePicker>
 
-                <Label Text="{Binding DayOfWeekString}" FontSize="Medium" />
+                <Label VerticalTextAlignment="Center" Text="{Binding DayOfWeekString}" FontSize="Medium" />
 
             </HorizontalStackLayout>
 
@@ -49,7 +50,7 @@
             Background="White"
             HorizontalOptions="Fill">
 
-            <ListView Margin="5" x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
+            <ListView x:DataType="viewmodel:ScheduleViewModel" ItemsSource="{Binding LessonsList}">
                 <ListView.RowHeight>
                     <OnPlatform Default="100"/>
                 </ListView.RowHeight>
@@ -66,13 +67,13 @@
 
                                     <VerticalStackLayout x:DataType="model:Lesson">
                                         <HorizontalStackLayout x:DataType="model:Lesson" Spacing="10">
-                                            <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="26" />
+                                            <Label FontAttributes="Bold" Text="{Binding Name}" FontSize="15" />
                                         </HorizontalStackLayout>
-                                        <HorizontalStackLayout x:DataType="model:Lesson" Spacing="40">
-                                            <Label Text="{Binding StartTime, StringFormat='{}{0:HH:mm}'}" FontSize="26" />
-                                            <Label Opacity=".8" Text="{Binding Locate}" FontSize="20" />
-                                            <Label Opacity=".8" Text="{Binding TeacherName}" FontSize="20" />
-                                            <Label Opacity=".8" Text="{Binding LessonTypeEnum}" FontSize="20" />
+                                        <HorizontalStackLayout x:DataType="model:Lesson" Spacing="5">
+                                            <Label Text="{Binding StartTime, StringFormat='{}{0:HH:mm}'}" FontSize="15" />
+                                            <Label Opacity=".8" Text="{Binding Locate}" FontSize="15" />
+                                            <Label Opacity=".8" Text="{Binding TeacherName}" FontSize="15" />
+                                            <Label Opacity=".8" Text="{Binding LessonTypeEnum}" FontSize="15" />
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
 

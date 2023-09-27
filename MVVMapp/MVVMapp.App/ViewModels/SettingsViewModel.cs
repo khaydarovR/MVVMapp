@@ -82,7 +82,10 @@ public partial class SettingsViewModel : ObservableObject
                 NotifyTime = DateTime.Now.AddSeconds(5),
             }
         };
+
+#if ANDROID
         await LocalNotificationCenter.Current.Show(request);
+#endif
     }
 
     string storageTimer = "";
