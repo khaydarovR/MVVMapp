@@ -19,7 +19,8 @@ public class RestService
 
     public RestService()
     {
-        _client = new HttpClient() { BaseAddress = new Uri("https://localhost:7023/") };
+        //_client = new HttpClient() { BaseAddress = new Uri("https://localhost:7023/") };
+        _client = new HttpClient() { BaseAddress = new Uri("http://195.58.51.167") };
         _serializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
