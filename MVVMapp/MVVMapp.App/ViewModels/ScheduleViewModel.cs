@@ -34,7 +34,7 @@ public partial class ScheduleViewModel: ObservableObject
 
     private void CheckConfiguration()
     {
-        var emptySet = _userSettings.FirstOrDefault(v => string.IsNullOrEmpty(v.Value)).Value;
+        var emptySet = _userSettings.FirstOrDefault(v => !string.IsNullOrEmpty(v.Value)).Value;
         if (string.IsNullOrEmpty(emptySet))
         {
             _isConfigured = false;

@@ -94,7 +94,7 @@ public partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private async void GetSettingsAsync(object item)
     {
-        await Application.Current.MainPage.DisplayAlert("Msg", $"{storageGroup}, {storageTimer}", "Ok", "Cancel");
+        await Application.Current.MainPage.DisplayAlert("Msg", $"{storageGroup}, {storageTimer}, {storageSubGroup}", "Ok", "Cancel");
     }
 
     private void SetSettingsfromStorage()
