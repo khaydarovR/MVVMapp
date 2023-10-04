@@ -15,11 +15,8 @@ namespace MVVMapp.App
             Routing.RegisterRoute(nameof(SelfSettingsPage), typeof(SelfSettingsPage));
             Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            //Routing.RegisterRoute(nameof(NotesPage), typeof(NotesPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-            //Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            //Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
             Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
             CurrentAppShell = this;
         }
@@ -29,8 +26,6 @@ namespace MVVMapp.App
         /// </summary>
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            Debug.WriteLine("AppShell: Logout");
-
             await Current.GoToAsync("//LoginPage");
         }
 

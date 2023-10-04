@@ -15,6 +15,7 @@ public partial class SchedulePage : ContentPage
 
     protected override void OnAppearing()
     {
+        _viewModel.OnAppearing();
         base.OnAppearing();
     }
 }

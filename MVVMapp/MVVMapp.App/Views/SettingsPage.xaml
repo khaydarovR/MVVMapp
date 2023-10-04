@@ -103,6 +103,15 @@
                     </Button.Behaviors>
                 </Button>
 
+                <Button Text="Пингануть сервер">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="Clicked"
+                            Command="{Binding SendPingCommand}"
+                            CommandParameter="{ Binding .}" />
+                    </Button.Behaviors>
+                </Button>
+
             </VerticalStackLayout>
 
 

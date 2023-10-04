@@ -15,6 +15,11 @@ namespace MVVMapp.App
 
             MainPage = new AppShell();
         }
+        protected override void OnStart()
+        {
+            Shell.Current.GoToAsync("//SchedulePage");
+        }
+
         private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)
         {
             await Shell.Current.GoToAsync("//LoginPage");

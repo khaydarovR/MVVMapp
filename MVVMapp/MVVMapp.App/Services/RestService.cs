@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -29,6 +30,13 @@ public class RestService
         };
     }
 
+    /// <summary>
+    /// Получение расписания на определённую дату
+    /// </summary>
+    /// <param name="group"></param>
+    /// <param name="subGroup"></param>
+    /// <param name="date"></param>
+    /// <returns></returns>
     public async Task<StudDayOfWeek> RefreshDataAsync(string group, int subGroup, DateTime date)
     {
         var serviceResponse = new StudDayOfWeek();
@@ -56,27 +64,55 @@ public class RestService
         return serviceResponse;
     }
 
-    public StudDayOfWeek RefreshData(string group, int subGroup, DateTime date)
+
+    /// <summary>
+    /// Получение найденных групп с таблицы
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<string>> GetGroupsFromServer()
     {
-        string lessonName = "Сегодня дата";
-        if(date.Day == 23)
+        var serviceResponse = new List<string>() { "Сервер не ответил" };
+        try
         {
-            lessonName = "Другая дата";
-        }
-
-        StudDayOfWeek = new()
-        {
-            DayInWeek = DayOfWeek.Monday,
-            Group = group,
-            WeekType = WeekTypeEnum.Вверхняя,
-            Lessons = new List<Lesson>
+            var response = await _client.GetAsync("api/Common/Groups");
+            if (response.IsSuccessStatusCode)
             {
-                new Lesson {Name = lessonName},
-                new Lesson {Name = "Экономика"},
-                new Lesson {Name = "ММоделирование эк систем",},
-            }
-        };
+                serviceResponse = await response.Content.ReadFromJsonAsync<List<string>>();
 
-        return StudDayOfWeek;
+                return serviceResponse;
+            }
+            else
+            {
+                serviceResponse.Add(await response.Content.ReadAsStringAsync());
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(@"\tERROR {0}", ex.Message);
+        }
+        return serviceResponse;
+    }
+
+    /// <summary>
+    /// Проверка работоспособности сервера
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string> PingService()
+    {
+        var serviceResponse = "Сервер не ответил";
+        try
+        {
+            var response = await _client.GetAsync("ping");
+            if (response.IsSuccessStatusCode)
+            {
+                serviceResponse = await response.Content.ReadAsStringAsync();
+                return serviceResponse;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(@"\tERROR {0}", ex.Message);
+        }
+        return serviceResponse;
     }
 }
