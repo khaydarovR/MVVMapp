@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MVVMapp.App.DAL;
 using MVVMapp.App.Models;
+using MVVMapp.App.Services;
 using Plugin.LocalNotification;
 
 namespace MVVMapp.App.ViewModels;
@@ -12,7 +14,7 @@ public partial class SettingsViewModel : ObservableObject
 
     [ObservableProperty]
     private string? title = "Настройки";
-    
+
     [ObservableProperty]
     private string? selectedGroup = string.Empty;
 
@@ -29,14 +31,15 @@ public partial class SettingsViewModel : ObservableObject
     "4201102","4201112"};
 
     [ObservableProperty]
-    private List<int> timerValueList = new List<int> { 5, 10, 30, 60, 1440};
+    private List<int> timerValueList = new List<int> { 5, 10, 30, 60, 1440 };
 
     [ObservableProperty]
     private List<int> subGroupList = new List<int> { 1, 2 };
 
 
-    public SettingsViewModel()
+    public SettingsViewModel(RestService restService)
     {
+        this.restService = restService;
         SetSettingsfromStorage();
         if (storageGroup != "")
         {
@@ -50,8 +53,18 @@ public partial class SettingsViewModel : ObservableObject
         {
             selectedSubGroup = int.Parse(storageSubGroup);
         }
+
+        LoadGroupsFromServer();
     }
 
+    private async void LoadGroupsFromServer()
+    {
+        var response = await restService.GetGroupsFromServer();
+        if (response.Count > 3)
+        {
+            GroupList = response;
+        }
+    }
 
     [RelayCommand]
     private void GroupSelected(object item)
@@ -92,12 +105,22 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     string storageTimer = "";
-    string storageGroup = ""; 
-    string storageSubGroup = ""; 
+    string storageGroup = "";
+    string storageSubGroup = "";
+    private readonly RestService restService;
+
     [RelayCommand]
     private async void GetSettingsAsync(object item)
     {
+        SetSettingsfromStorage();
         await Application.Current.MainPage.DisplayAlert("Msg", $"{storageGroup}, {storageTimer}, {storageSubGroup}", "Ok", "Cancel");
+    }
+
+    [RelayCommand]
+    private async void SendPing(object item)
+    {
+        var msg = await restService.PingService();
+        await Application.Current.MainPage.DisplayAlert("Ответ сервера", $"{msg}", "Ok", "Cancel");
     }
 
     private void SetSettingsfromStorage()

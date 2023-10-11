@@ -17,7 +17,12 @@ namespace MVVMapp.App
         }
         private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//SelfSettingsPage");
+        }
+
+        protected override void OnStart()
+        {
+            Shell.Current.GoToAsync("/SchedulePage");
         }
     }
 }

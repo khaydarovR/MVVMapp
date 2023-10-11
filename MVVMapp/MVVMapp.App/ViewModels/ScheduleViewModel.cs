@@ -11,7 +11,7 @@ using Plugin.LocalNotification;
 
 namespace MVVMapp.App.ViewModels;
 
-public partial class ScheduleViewModel: ObservableObject
+public partial class ScheduleViewModel : ObservableObject
 {
     private readonly RestService _restService;
     private bool _isConfigured = false;
@@ -19,9 +19,7 @@ public partial class ScheduleViewModel: ObservableObject
     public ScheduleViewModel(RestService restService)
     {
         _dayOfWeekString = Helpers.ToRussianDayOfWeek(DateTime.Now.DayOfWeek);
-        _userSettings[Constants.KeyTimer] = Preferences.Get(Constants.KeyTimer, "");
-        _userSettings[Constants.KeyGroup] = Preferences.Get(Constants.KeyGroup, "");
-        _userSettings[Constants.KeySubGroup] = Preferences.Get(Constants.KeySubGroup, "");
+        LoadSettings();
         _restService = restService;
 
         CheckConfiguration();
@@ -30,6 +28,13 @@ public partial class ScheduleViewModel: ObservableObject
         {
             UpdateSchelduler();
         }
+    }
+
+    private void LoadSettings()
+    {
+        _userSettings[Constants.KeyTimer] = Preferences.Get(Constants.KeyTimer, "");
+        _userSettings[Constants.KeyGroup] = Preferences.Get(Constants.KeyGroup, "");
+        _userSettings[Constants.KeySubGroup] = Preferences.Get(Constants.KeySubGroup, "");
     }
 
     private void CheckConfiguration()
@@ -74,21 +79,34 @@ public partial class ScheduleViewModel: ObservableObject
         }
     }
 
+    public void OnAppearing()
+    {
+        if (SettingWasChanged())
+        {
+            LoadSettings();
+            UpdateSchelduler();
+        }
+    }
+
+    private bool SettingWasChanged()
+    {
+        return (_userSettings[Constants.KeyGroup] != Preferences.Get(Constants.KeyGroup, "") ||
+            _userSettings[Constants.KeySubGroup] != Preferences.Get(Constants.KeySubGroup, ""));
+    }
+
     [ObservableProperty]
     private string? title = "Расписание";
-    
+
     [ObservableProperty]
-    private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Не удалось загрузить расписание"} };
+    private ObservableCollection<Lesson> lessonsList = new() { new Lesson { Name = "Не удалось загрузить расписание" } };
 
     private async void UpdateSchelduler()
     {
-        var storageGroup = Preferences.Get(Constants.KeyGroup, "");
-        var storageSubGroup = Preferences.Get(Constants.KeySubGroup, "");
-        var storageTimer = Preferences.Get(Constants.KeyTimer, "");
-
-        var data = await _restService.RefreshDataAsync(storageGroup, int.Parse(storageSubGroup), _appointmentDate);
+        LoadSettings();
+        var data = await _restService.RefreshDataAsync(_userSettings[Constants.KeyGroup],
+            int.Parse(_userSettings[Constants.KeySubGroup]), _appointmentDate);
         LessonsList = data.Lessons.ToObservableCollection();
-        if (string.IsNullOrEmpty(storageTimer) == false)
+        if (string.IsNullOrEmpty(_userSettings[Constants.KeyTimer]) == false)
         {
 #if ANDROID
             CreateNotifyForLessons(LessonsList);
@@ -98,19 +116,20 @@ public partial class ScheduleViewModel: ObservableObject
 
     private void CreateNotifyForLessons(IEnumerable<Lesson> lessons)
     {
-        var storageTimer = Preferences.Get(Constants.KeyTimer, "");
+        var minutes = double.Parse(_userSettings[Constants.KeyTimer]);
+        LocalNotificationCenter.Current.CancelAll();
         foreach (var les in lessons)
         {
             var request = new NotificationRequest()
             {
                 NotificationId = les.Id,
-                Title = les.Name,
+                Title = les.Name + $" через {minutes} мин. ",
                 Subtitle = les.StartTime.ToShortTimeString(),
                 Description = les.Locate + " " + les.TeacherName + " " + les.LessonTypeEnum,
                 BadgeNumber = 42,
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = _appointmentDate.AddHours(les.StartTime.Hour).AddMinutes(les.StartTime.Minute - int.Parse(storageTimer))
+                    NotifyTime = les.StartTime - TimeSpan.FromMinutes(minutes),
                 }
             };
 
