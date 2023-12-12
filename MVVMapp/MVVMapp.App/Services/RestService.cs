@@ -22,7 +22,7 @@ public class RestService
     {
         //_client = new HttpClient() { BaseAddress = new Uri("https://localhost:7023/") };
 
-        _client = new HttpClient() { BaseAddress = new Uri("http://195.58.51.167/") };
+        _client = new HttpClient() { BaseAddress = new Uri("http://195.133.145.20/") };
         _serializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
